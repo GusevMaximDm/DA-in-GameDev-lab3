@@ -43,7 +43,7 @@
 до запуска программы
 ![Image alt](https://github.com/GusevMaximDm/DA-in-GameDev-lab3/blob/main/200125677-c18b3b80-bd08-42fc-95c6-b41296a7e6ed.png)
 после запуска
-![Image alt]()
+![Image alt](https://github.com/GusevMaximDm/DA-in-GameDev-lab3/blob/main/после%20работы.png)
 
 
 - при большем количестве стендов с которыми можно работать также каждый раз уникальный результат
