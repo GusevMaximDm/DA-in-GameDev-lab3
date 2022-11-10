@@ -1,5 +1,5 @@
 # АНАЛИЗ ДАННЫХ И ИСКУССТВЕННЫЙ ИНТЕЛЛЕКТ [in GameDev]
-Отчет по лабораторной работе #1 выполнил(а):
+Отчет по лабораторной работе #3 выполнил(а):
 - Гусева Максима Дмитриевича
 - РИ211121
 Отметка о выполнении заданий (заполняется студентом):
@@ -40,98 +40,66 @@
 ## Задание 1
 ### Реализовать систему машинного обучения в связке Python - Google-Sheets – Unity. При выполнении задания можно использовать видео-материалы и исходные данные, предоставленные преподавателями курса.
 Ход работы: Работа над заданием началась с повторения настройки программ, с видео из методических указаний. работа с anaconda promt, и проведение работы с ии.
+до запуска программы
+![Image alt](https://github.com/GusevMaximDm/DA-in-GameDev-lab3/blob/main/200125677-c18b3b80-bd08-42fc-95c6-b41296a7e6ed.png)
+после запуска
+![Image alt](https://github.com/GusevMaximDm/DA-in-GameDev-lab3/blob/main/200125748-4429dfa3-ba72-4ef0-881c-755b5663d2d8.png)
 
-```py
 
-In [ ]:
-#Import the required modules, numpy for calculation, and Matplotlib for drawing
-import numpy as np
-import matplotlib.pyplot as plt
-#This code is for jupyter Notebook only
-%matplotlib inline
-
-# define data, and change list to array
-x = [3,21,22,34,54,34,55,67,89,99]
-x = np.array(x)
-y = [2,22,24,65,79,82,55,130,150,199]
-y = np.array(y)
-
-#Show the effect of a scatter plot
-plt.scatter(x,y)
-
-```
-
-- Определите связанные функции. Функция модели: определяет модель линейной регрессии wx+b. Функция потерь: функция потерь среднеквадратичной ошибки. Функция оптимизации: метод градиентного спуска для нахождения частных производных w и b.
+- при большем количестве стендов с которыми можно работать также каждый раз уникальный результат
 
 
 ## Задание 2
-### Должна ли величина loss стремиться к нулю при изменении исходных данных? Ответьте на вопрос, приведите пример выполнения кода, который подтверждает ваш ответ.
+### Подробно опишите каждую строку файла конфигурации нейронной сети, доступного в папке с файлами проекта по ссылке. Самостоятельно найдите информацию о компонентах Decision Requester, Behavior Parameters, добавленных на сфере.
+trainer_type – задаёт тип используемого для обучения тренажёра (PPO или SAC)
 
-- Перечисленные в этом туториале действия могут быть выполнены запуском на исполнение скрипт-файла, доступного [в репозитории](https://github.com/Den1sovDm1triy/hfss-scripting/blob/main/ScreatingSphereInAEDT.py).
-- Для запуска скрипт-файла откройте Ansys Electronics Desktop. Перейдите во вкладку [Automation] - [Run Script] - [Выберите файл с именем ScreatingSphereInAEDT.py из репозитория].
+batch_size – Количество опытов на каждой итерации градиентного спуска.
 
-```py
+buffer_size – Количество опыта, которое нужно собрать для обновления итерации или её изучения.
 
-import ScriptEnv
-ScriptEnv.Initialize("Ansoft.ElectronicsDesktop")
-oDesktop.RestoreWindow()
-oProject = oDesktop.NewProject()
-oProject.Rename("C:/Users/denisov.dv/Documents/Ansoft/SphereDIffraction.aedt", True)
-oProject.InsertDesign("HFSS", "HFSSDesign1", "HFSS Terminal Network", "")
-oDesign = oProject.SetActiveDesign("HFSSDesign1")
-oEditor = oDesign.SetActiveEditor("3D Modeler")
-oEditor.CreateSphere(
-	[
-		"NAME:SphereParameters",
-		"XCenter:="		, "0mm",
-		"YCenter:="		, "0mm",
-		"ZCenter:="		, "0mm",
-		"Radius:="		, "1.0770329614269mm"
-	], 
-)
+learning_rate – изменение скорости обучения модели с течением времени.
 
-```
+beta – исследование случайных (более или менее) пространств действий.
 
-## Задание 3
-### Какова роль параметра Lr? Ответьте на вопрос, приведите пример выполнения кода, который подтверждает ваш ответ. В качестве эксперимента можете изменить значение параметра.
+epsilon – параметр влияющий на быстроту развития (ускорения работы) системы с каждой итерацией.
 
-- Перечисленные в этом туториале действия могут быть выполнены запуском на исполнение скрипт-файла, доступного [в репозитории](https://github.com/Den1sovDm1triy/hfss-scripting/blob/main/ScreatingSphereInAEDT.py).
-- Для запуска скрипт-файла откройте Ansys Electronics Desktop. Перейдите во вкладку [Automation] - [Run Script] - [Выберите файл с именем ScreatingSphereInAEDT.py из репозитория].
+lambd – параметр оценивающий совпадение стоимости вознаграждения обучений между собой (что то вроде погрешности), чем стабильнее значения. тем быстрее идёт процесс.
 
-```py
+num_epoch – Количество проходов через буфер опыта при выполнении оптимизации градиентного спуска. (чем больше, тем быстрее итерация и наоборот)
 
-import ScriptEnv
-ScriptEnv.Initialize("Ansoft.ElectronicsDesktop")
-oDesktop.RestoreWindow()
-oProject = oDesktop.NewProject()
-oProject.Rename("C:/Users/denisov.dv/Documents/Ansoft/SphereDIffraction.aedt", True)
-oProject.InsertDesign("HFSS", "HFSSDesign1", "HFSS Terminal Network", "")
-oDesign = oProject.SetActiveDesign("HFSSDesign1")
-oEditor = oDesign.SetActiveEditor("3D Modeler")
-oEditor.CreateSphere(
-	[
-		"NAME:SphereParameters",
-		"XCenter:="		, "0mm",
-		"YCenter:="		, "0mm",
-		"ZCenter:="		, "0mm",
-		"Radius:="		, "1.0770329614269mm"
-	], 
-)
+learning_rate_schedule – скорость обучения, которая в нашем случае уменьшается линейно до нуля.
 
-```
+normalize – отвечает за то будут ли нормироваться (усредняться) входные данные (в нашем случае -нет)
+
+hidden_units – количество значений в подключенном слое нейронной сети (то есть чем больше будет поток входных данных, тем больше нужно ввести значения параметра и наоборот).
+
+num_layers – Количество скрытых слоев в нейронной сети. Число слоёв, принимающих на себя работу, чем сложнее задача, тем больше нужно слоёв.
+
+gamma – Параметр, отвечающий за то, насколько далеко вперёд должен думать о вознаграждении агент. Должен быть в состоянии подготовиться – выделить объём места и т.д. 
+
+strength – Коэффициент, на который умножается вознаграждение, предоставляемое средой. Благодаря этому параметру можно увеличивать или уменьшать количество поступаемой валюты.
+
+max_steps – Общее количество шагов-действий, которые должны быть выполнены в среде до завершения процесса обучения.
+
+time_horizon – Сколько опыта нужно собрать перед тем, как добавить в буфер. Также используется, как среднее значение для общего ожидаемого вознаграждения.
+
+summary_freq – Количество опыта, которое необходимо собрать перед созданием и отображением статистики обучения.
+
+hyperparameters – Группировка параметров, отвечающих за управления процессом обучения
+
+network_settings – Группировка параметров, отвечающих за обучение сети.
+
+reward_signals – Раздел позволяющий задавать настройки как для внешних, так и для внутренних сигналов вознаграждения.
+
+extrinsic – внешний сигнал из reward_signals
+
+Decision Requester это компонент автоматически запрашивающий решение с постоянным интервалом времени. Тоесть он отвечает за принятие решения в цикле: наблюдение-принятия решения-действие-вознаграждение.
+
+Behavior Parameters -это компонент выполняющий функции настройки поведения агента (генерирует объекты и их свойства согласно заданным параметрам).
 
 ## Выводы
 
-Абзац умных слов о том, что было сделано и что было узнано.
-
-| Plugin | README |
-| ------ | ------ |
-| Dropbox | [plugins/dropbox/README.md][PlDb] |
-| GitHub | [plugins/github/README.md][PlGh] |
-| Google Drive | [plugins/googledrive/README.md][PlGd] |
-| OneDrive | [plugins/onedrive/README.md][PlOd] |
-| Medium | [plugins/medium/README.md][PlMe] |
-| Google Analytics | [plugins/googleanalytics/README.md][PlGa] |
+в первом задании пронаблюдали взаимодействие двух объектов и пришли к выводу, что кол-во результатов безгранично. Во втором зднии познакомилсь с внушительным кол-вом терминов
 
 ## Powered by
 
